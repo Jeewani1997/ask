@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
+const express = require('express');
+const app = express();
 const businessRoutes = express.Router();
 
-let Business = require('./bussiness.model');
+let Business = require('./business.model');
 
 //store data
 businessRoutes.route('/add').post(function(req,res){
-    let bussiness = new Business(req.body);
-    bussiness.save()
-    .then(bussiness=>{
+    
+    let business = new Business(req.body);
+    business.save()
+    .then(business=>{
         res.status(200).json("Bussiness is added succefully");
     }) 
     .catch(err=>{
@@ -17,11 +20,12 @@ businessRoutes.route('/add').post(function(req,res){
 
 //get data
 businessRoutes.route('/').get(function(req,res){
-    Business.find(function(err,bussiness){
+    
+    Business.find(function(err,business){
         if(err)
          console.log(err);
         else{
-            res.json(bussiness);
+            res.json(business);
         }
     });
 });
@@ -29,22 +33,22 @@ businessRoutes.route('/').get(function(req,res){
 //edit
 businessRoutes.route('/edit/:id').get(function(req,res){
     let id= req.params.id;
-    Business.findById(id,function(err,bussiness){
-        res.json(bussiness);
+    Business.findById(id,function(err,business){
+        res.json(business);
     })
 });
 
 //update
 businessRoutes.route('/update/:id').post(function(req,res){
-    Business.findById(req.params.id,function(err,bussiness){
-        if(!bussiness)
+    Business.findById(req.params.id,function(err,business){
+        if(!business)
          res.status(404).send("data is insetered");
         else{
-            bussiness.person_name = req.body.person_name;
-            bussiness.business_name = req.body.business_name;
-            bussiness.nic_no = req.body.nic_no;
+            business.person_name = req.body.person_name;
+            business.business_name = req.body.business_name;
+            business.nic_no = req.body.nic_no;
 
-            bussiness.save().then(bussiness=>{
+            business.save().then(business=>{
                 res.json("Update Completed");
             })
             .catch(err=>{
@@ -56,7 +60,7 @@ businessRoutes.route('/update/:id').post(function(req,res){
 
 //delete
 businessRoutes.route('/delete/:id').get(function(req,res){
-    Business.findByIdAndRemove({id:req.params.id},function(err,bussiness){
+    Business.findByIdAndRemove({id:req.params.id},function(err,business){
         if(err)res.json(err);
         else res.json("Successfully deleted");
     });

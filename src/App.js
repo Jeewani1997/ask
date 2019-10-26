@@ -11,11 +11,11 @@ class App extends Component{
     return (
       <Router>
         <div className="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-default">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-default">
             <Link to={'/'} className="navbar-brand">React Crud</Link>
-            <div class="collapse navbar-collapse" id="navbarColor01">
+            <div className="collapse navbar-collapse" id="navbarColor01">
             
-            <ul class="navbar-nav mr-auto">
+            <ul className="navbar-nav mr-auto">
             <div className="row">
               <div className="col-md-4">
               <li className="nav-item">

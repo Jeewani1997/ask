@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 export default class Create extends Component {
 
@@ -8,7 +9,7 @@ export default class Create extends Component {
        this.onChangeBusinessName = this.onChangeBusinessName.bind(this);
        this.onChangeNICNo = this.onChangeNICNo.bind(this);
        this.onSubmit = this.onSubmit.bind(this);
-       console.log("sklkdls")
+      
 
        this.state = {
            person_name: '',
@@ -17,33 +18,45 @@ export default class Create extends Component {
        }
    }
    onChangePersonName(e){
-       this.setState(this.state,{
+       this.setState({
            person_name: e.target.value
        },
         );
    }
 
    onChangeBusinessName(e){
-    this.setState(this.state,{
+    this.setState({
         business_name: e.target.value
     }
      );
    }
 
    onChangeNICNo(e){
-    this.setState(this.state,{
+    this.setState({
         nic_no: e.target.value
     }
      );
    }
    onSubmit(e){
       e.preventDefault();
-      console.log(`The values are ${this.state.person_name},${this.state.business_name}, and ${this.state.nic_no}`);
-      this.setState(this.state,{
-        person_name: '',
-        business_name: '',
-        nic_no: ''
-      })
+    //   console.log(`The values are ${this.state.person_name},${this.state.business_name}, and ${this.state.nic_no}`);
+    //   this.setState(this.state,{
+    //     person_name: '',
+    //     business_name: '',
+    //     nic_no: ''
+    //   })
+    const obj ={
+        person_name : this.state.person_name,
+        business_name : this.state.business_name,
+        nic_no : this.state.nic_no
+    };
+    axios.post('http://localhost:4000/business/add',obj).then(res=>console.log(res.data));
+
+    this.setState({
+        person_name:'',
+        business_name:'',
+        nic_no:''
+    })
     }
 
    
